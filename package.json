@@ -9,6 +9,9 @@
 	"categories": [
 		"Other"
 	],
+	"activationEvents": [
+		"onCommand:sendtodiscord.sendToDiscord"
+	],
 	"main": "./extension.js",
 	"contributes": {
 		"configuration": {
