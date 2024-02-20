@@ -1,36 +1,74 @@
-// The module 'vscode' contains the VS Code extensibility API
-// Import the module and reference it with the alias vscode in your code below
 const vscode = require('vscode');
 
-// This method is called when your extension is activated
-// Your extension is activated the very first time the command is executed
+function sendMessageToDiscord(message) {
+	// Access the user's settings to get the webhook URL
+	const config = vscode.workspace.getConfiguration('sendtodiscord');
+	const webhookUrl = config.get('webhookUrl');
 
-/**
- * @param {vscode.ExtensionContext} context
- */
+	if (!webhookUrl) {
+		vscode.window.showErrorMessage(
+			'Discord webhook URL is not configured. Please set it in the extension settings.'
+		);
+		return;
+	}
+
+	const formattedMessage = '``` ' + message + ' ```';
+
+	fetch(webhookUrl, {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify({
+			content: formattedMessage,
+		}),
+	})
+		.then((response) => {
+			if (response.ok) {
+				// Check if the response status is 2xx
+				vscode.window.showInformationMessage(
+					'Successfully sent message to Discord'
+				);
+			} else {
+				// Handle HTTP errors
+				return response.json().then((error) => {
+					throw new Error(`Discord API returned an error: ${error}`);
+				});
+			}
+		})
+		.catch((error) =>
+			vscode.window.showErrorMessage(
+				`Error sending message to Discord: ${error}`
+			)
+		);
+}
+
 function activate(context) {
-
-	// Use the console to output diagnostic information (console.log) and errors (console.error)
-	// This line of code will only be executed once when your extension is activated
-	console.log('Congratulations, your extension "sendtodiscord" is now active!');
-
-	// The command has been defined in the package.json file
-	// Now provide the implementation of the command with  registerCommand
-	// The commandId parameter must match the command field in package.json
-	let disposable = vscode.commands.registerCommand('sendtodiscord.helloWorld', function () {
-		// The code you place here will be executed every time your command is executed
-
-		// Display a message box to the user
-		vscode.window.showInformationMessage('Hello World from sendtodiscord!');
-	});
+	let disposable = vscode.commands.registerCommand(
+		'sendtodiscord.sendToDiscord',
+		function () {
+			let activeEditor = vscode.window.activeTextEditor;
+			if (activeEditor) {
+				let text = activeEditor.document.getText(activeEditor.selection);
+				if (text) {
+					// Send the selected text to Discord
+					sendMessageToDiscord(text);
+					vscode.window.showInformationMessage(
+						'Sent selected text to Discord!'
+					);
+				} else {
+					vscode.window.showInformationMessage('No text selected.');
+				}
+			}
+		}
+	);
 
 	context.subscriptions.push(disposable);
 }
 
-// This method is called when your extension is deactivated
 function deactivate() {}
 
 module.exports = {
 	activate,
-	deactivate
-}
+	deactivate,
+};

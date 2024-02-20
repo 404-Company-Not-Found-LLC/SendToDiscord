@@ -1,34 +1,64 @@
 {
-  "name": "sendtodiscord",
-  "displayName": "sendtodiscord",
-  "description": "testing for now",
-  "version": "0.0.1",
-  "engines": {
-    "vscode": "^1.86.0"
-  },
-  "categories": [
-    "Other"
-  ],
-  "activationEvents": [],
-  "main": "./extension.js",
-  "contributes": {
-    "commands": [{
-      "command": "sendtodiscord.helloWorld",
-      "title": "Hello World"
-    }]
-  },
-  "scripts": {
-    "lint": "eslint .",
-    "pretest": "npm run lint",
-    "test": "vscode-test"
-  },
-  "devDependencies": {
-    "@types/vscode": "^1.86.0",
-    "@types/mocha": "^10.0.6",
-    "@types/node": "18.x",
-    "eslint": "^8.56.0",
-    "typescript": "^5.3.3",
-    "@vscode/test-cli": "^0.0.4",
-    "@vscode/test-electron": "^2.3.9"
-  }
+	"name": "sendtodiscord",
+	"displayName": "SendToDiscord",
+	"description": "A simple extension to send the current selection in the editor to Discord as a code-block.",
+	"version": "0.1.1",
+	"engines": {
+		"vscode": "^1.86.0"
+	},
+	"categories": [
+		"Other"
+	],
+	"main": "./extension.js",
+	"contributes": {
+		"configuration": {
+			"title": "SendToDiscord",
+			"properties": {
+				"sendtodiscord.webhookUrl": {
+					"type": "string",
+					"default": "",
+					"description": "The Discord webhook URL to send messages to."
+				}
+			}
+		},
+		"commands": [
+			{
+				"command": "sendtodiscord.sendToDiscord",
+				"title": "Send To Discord"
+			}
+		],
+		"menus": {
+			"editor/context": [
+				{
+					"when": "editorTextFocus && !editorReadonly",
+					"command": "sendtodiscord.sendToDiscord",
+					"group": "navigation"
+				}
+			]
+		},
+		"keybindings": [
+			{
+				"command": "sendtodiscord.sendToDiscord",
+				"key": "ctrl+alt+d",
+				"mac": "cmd+alt+d",
+				"when": "editorTextFocus"
+			}
+		]
+	},
+	"scripts": {
+		"lint": "eslint .",
+		"pretest": "npm run lint",
+		"test": "vscode-test"
+	},
+	"devDependencies": {
+		"@types/mocha": "^10.0.6",
+		"@types/node": "18.x",
+		"@types/vscode": "^1.86.0",
+		"@vscode/test-electron": "^2.3.9",
+		"eslint": "^8.56.0",
+		"typescript": "^5.3.3"
+	},
+	"dependencies": {
+		"node-fetch": "^3.3.2"
+	}
 }
