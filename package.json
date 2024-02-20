@@ -3,6 +3,8 @@
 	"displayName": "SendToDiscord",
 	"description": "A simple extension to send the current selection in the editor to Discord as a code-block.",
 	"version": "0.1.1",
+	"repository": "https://github.com/404-Company-Not-Found-LLC/SendToDiscord",
+	"publisher": "404CompanyNotFoundLLC",
 	"engines": {
 		"vscode": "^1.86.0"
 	},

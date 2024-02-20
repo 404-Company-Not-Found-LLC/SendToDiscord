@@ -1,65 +1,54 @@
-# sendtodiscord README
+# SendToDiscord
 
-This is the README for your extension "sendtodiscord". After writing up a brief description, we recommend including the following sections.
+SendToDiscord is a Visual Studio Code extension that allows you to quickly send selected text or code snippets directly to a Discord channel through a webhook. This tool is perfect for developers who want to share code snippets, errors, or any text with their team on Discord efficiently without leaving their coding environment.
 
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+- **Send Selected Text**: Easily send any selected text or code snippets from your editor to a configured Discord channel.
+- **Custom Webhook Configuration**: Configure your own Discord webhook through the extension settings for personalized use.
+- **Quick Access**: Use the context menu (right-click) or a keyboard shortcut to send text to Discord, making it seamless to share information while coding.
 
-For example if there is an image subfolder under your extension project workspace:
+## Getting Started
 
-\!\[feature X\]\(images/feature-x.png\)
+### Prerequisites
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+- Visual Studio Code (version 1.38.0 or higher)
+- A Discord account and a server where you can create webhooks
 
-## Requirements
+### Installation
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+1. Open Visual Studio Code.
+2. Navigate to the Extensions view by clicking on the square icon on the sidebar or pressing `Ctrl+Shift+X`.
+3. Search for `SendToDiscord`.
+4. Click on the Install button.
 
-## Extension Settings
+### Configuration
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
+1. Obtain a webhook URL from your Discord server:
+   - Go to Server Settings -> Integrations -> Webhooks.
+   - Create a new webhook and copy its URL.
+2. Open the Command Palette in VS Code by pressing `Ctrl+Shift+P`.
+3. Type `Preferences: Open Settings (JSON)` and press Enter.
+4. Add or modify the following line in your settings file, replacing `<YOUR_WEBHOOK_URL>` with your actual webhook URL:
 
-For example:
+```json
+"sendtodiscord.webhookUrl": "<YOUR_WEBHOOK_URL>"
+```
 
-This extension contributes the following settings:
+### Usage
 
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
+1. Select the text or code snippet you wish to send to Discord.
+2. Right-click to open the context menu and select **"Send To Discord"**, or use the keyboard shortcut (configure this in the Keyboard Shortcuts settings).
+3. The selected text will be sent to your Discord channel.
 
-## Known Issues
+### Contributing
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
+Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are greatly appreciated.
 
-## Release Notes
+If you have a suggestion that would make this better, please fork the repository and create a pull request. You can also simply open an issue with the tag "enhancement".
 
-Users appreciate release notes as you update your extension.
+Don't forget to give the project a star! Thanks again!
 
-### 1.0.0
+### License
 
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
-
----
-
-## Working with Markdown
-
-You can author your README using Visual Studio Code.  Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux)
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux)
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets
-
-## For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+Distributed under the MIT License.
